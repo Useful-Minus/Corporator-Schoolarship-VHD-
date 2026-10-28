@@ -1,9 +1,10 @@
 Yêu cầu WEBSITE:
 - Trên cùng có 1 cái bộ lọc (người dùng điền gpa với điểm rèn luyện để lọc ra những học bổng đủ đkien để mình app)
 - Ở dưới là tất cả các học bổng doanh nghiệp và học bổng của trường (mỗi học bổng phải hiện đầy đủ các thông tin như gpa, điểm rèn luyện, hạn, mức học bổng,…)
+
 -  Sẽ có 1 cái mục là hồ sơ của tôi, ví dụ xem cái list học bổng user muốn app cái này thì sẽ bấm vô cái học bổng đó trong học bổng đó có 1 cái nút bấm chọn để đưa nó vào mục hồ sơ của tôi, khi đưa vào hồ sơ của tôi thì trong cái học bổng đó sẽ hiện 2 mục nữa là nhắc nhở thời gian đóng và 1 mục là check list hồ sơ kiểu để user tick là user đã chbi xong những hồ sơ nào rồi á
 
-- web phải đầy đủ thông tin về các học bổng, đề xuất những học bổng phù hợp khi người dùng nêu ý kiến --> xem dk họ có phù hợp vs học bổng hay không, nhắc nhở ng dùng trc hạn học bổng kết thúc.
+- web phải đầy đủ thông tin về các học bổng, nhắc nhở ng dùng trc hạn học bổng kết thúc.
 
 - HD Mục List các học bổng (trong trường+ doanh nghiệp hỗ trợ cho trường) đang mở
 - Ttin về các học bổng đó phải bao gồm: thời gian mở, tg đóng, mức học bổng, điều kiện (gpa + điểm rèn luyện + yêu cầu khác)
