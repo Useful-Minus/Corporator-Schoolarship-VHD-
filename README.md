@@ -57,12 +57,12 @@ Bạn dùng máy nào thì đọc đúng phần đó.
 
 ## A. Hướng dẫn cho máy Windows
 
-### Bước 1. Mở PowerShell
+### 1. Mở PowerShell
 
 Bấm nút **Start**, gõ `PowerShell`, bấm mở **Windows PowerShell**.
 Mọi lệnh bên dưới bạn copy rồi dán vào cửa sổ này, bấm **Enter** sau mỗi lệnh.
 
-### Bước 2. Cài 3 phần mềm cần thiết
+### 2. Cài 3 phần mềm cần thiết
 
 Gõ từng lệnh, chờ mỗi lệnh chạy xong hẳn rồi mới gõ lệnh tiếp theo:
 
@@ -92,7 +92,7 @@ python --version
 Nếu cả 3 lệnh đều hiện ra chữ và số phiên bản (ví dụ `v20.x`, `Python 3.12...`)
 là thành công.
 
-### Bước 3. Bật công cụ pnpm
+### 3. Bật công cụ pnpm
 
 1. Bấm nút **Start**, gõ `PowerShell`, **bấm chuột phải** → chọn
    **Run as Administrator** (chạy với quyền quản trị), bấm **Yes**.
@@ -112,7 +112,7 @@ Nếu nó hiện ra số phiên bản (ví dụ `12.16.1`) là xong.
 (Từ đây về sau, chỗ nào ghi `pnpm ...` mà máy báo không hiểu thì bạn gõ
 `corepack pnpm ...` thay thế.)
 
-### Bước 4. Tải code về và mở web lên
+### 4. Tải code về và mở web lên
 
 ```powershell
 cd D:\
@@ -149,7 +149,7 @@ File thành phẩm nằm trong thư mục `dist/`. Muốn xem thử bản đó:
 corepack pnpm preview
 ```
 
-### Bước 5. Cài thêm công cụ lấy tin học bổng (không bắt buộc)
+### 5. Cài thêm công cụ lấy tin học bổng (không bắt buộc)
 
 Chỉ cần nếu bạn muốn tự lấy tin mới từ trang của trường.
 Trong PowerShell, đang ở thư mục `UEH_WebHB`, gõ:
@@ -182,13 +182,13 @@ Lệnh cuối sẽ tự lấy tin và ghi vào `src\data\scholarships.json`
 
 ## B. Hướng dẫn cho máy Linux (Ubuntu)
 
-### Bước 1. Mở Terminal
+### 1. Mở Terminal
 
 Bấm **Ctrl + Alt + T**. Mọi lệnh bên dưới bạn copy, dán vào Terminal,
 bấm **Enter**. Lệnh nào bắt đầu bằng `sudo` thì máy sẽ hỏi mật khẩu,
 bạn cứ gõ mật khẩu đăng nhập rồi Enter (gõ không hiện chữ là bình thường).
 
-### Bước 2. Cài 3 phần mềm cần thiết
+### 2. Cài 3 phần mềm cần thiết
 
 ```bash
 sudo apt update
@@ -212,7 +212,7 @@ python3 --version
 
 Cả 3 lệnh đều hiện chữ và số phiên bản là thành công.
 
-### Bước 3. Bật công cụ pnpm (chỉ làm 1 lần)
+### 3. Bật công cụ pnpm (chỉ làm 1 lần)
 
 ```bash
 sudo corepack enable || true
@@ -223,7 +223,7 @@ Nếu dòng `sudo corepack enable` báo lỗi không có quyền ghi thì kệ n
 miễn dòng thứ hai hiện ra số phiên bản là được. Từ đây, chỗ nào ghi `pnpm ...`
 mà máy báo không hiểu thì gõ `corepack pnpm ...` thay thế.
 
-### Bước 4. Tải code về và mở web lên
+### 4. Tải code về và mở web lên
 
 ```bash
 cd ~
@@ -254,7 +254,7 @@ File thành phẩm nằm trong thư mục `dist/`. Xem thử bản đó:
 corepack pnpm preview
 ```
 
-### Bước 5. Cài thêm công cụ lấy tin học bổng (không bắt buộc)
+### 5. Cài thêm công cụ lấy tin học bổng (không bắt buộc)
 
 ```bash
 cd ~/UEH_WebHB
