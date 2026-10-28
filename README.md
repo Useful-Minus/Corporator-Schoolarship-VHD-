@@ -7,12 +7,9 @@ Sinh viên chỉ cần nhập điểm trung bình (GPA), điểm rèn luyện, k
 trang web sẽ tự chỉ ra mình hợp với học bổng nào, còn bao nhiêu ngày để nộp,
 cần chuẩn bị giấy tờ gì, và sẽ nhắc trước khi hết hạn.
 
-> File này là hướng dẫn từng bước để tải code về máy và mở web lên chạy thử.
-> Bạn không cần biết lập trình, chỉ cần gõ (hoặc copy) từng lệnh theo đúng thứ tự.
-
 ---
 
-## 1. Web này làm được những gì (nói ngắn gọn)
+## 1. Tính năng cửa web
 
 - **Ô tìm học bổng ở đầu trang:** nhập GPA, điểm rèn luyện, khóa, ngành, mong muốn
   (muốn hỗ trợ tiền học hay muốn khen thưởng thành tích) → web tự lọc ra học bổng
@@ -31,7 +28,7 @@ cần chuẩn bị giấy tờ gì, và sẽ nhắc trước khi hết hạn.
 Kết quả lọc chỉ để tham khảo cho nhanh, quyết định cuối cùng vẫn thuộc về đơn vị
 xét học bổng. Nguồn tin chính: dsa.ueh.edu.vn.
 
-## 2. Trong thư mục này có gì
+## 2. Các thành phần trong repo
 
 - `src/` — toàn bộ phần hiển thị của web (màn hình, nút bấm, ô nhập...).
 - `src/data/scholarships.json` — danh sách 10 học bổng mẫu để chạy thử.
@@ -43,9 +40,9 @@ xét học bổng. Nguồn tin chính: dsa.ueh.edu.vn.
   không đưa lên mạng (đã khai báo trong `.gitignore` nên bạn tải từ GitHub về
   sẽ không thấy chúng, đó là bình thường).
 
-## 3. Cần chuẩn bị gì trước khi bắt đầu
+## 3. Các thành phần cần chuẩn bị
 
-Bạn cần 3 thứ (đều miễn phí):
+Bạn cần 3 thứ:
 
 1. **Git** — phần mềm để tải code từ GitHub về máy.
 2. **Node.js (bản 20)** — phần mềm để mở và chạy thử trang web.
@@ -95,7 +92,7 @@ python --version
 Nếu cả 3 lệnh đều hiện ra chữ và số phiên bản (ví dụ `v20.x`, `Python 3.12...`)
 là thành công.
 
-### Bước 3. Bật công cụ pnpm (chỉ làm 1 lần)
+### Bước 3. Bật công cụ pnpm
 
 1. Bấm nút **Start**, gõ `PowerShell`, **bấm chuột phải** → chọn
    **Run as Administrator** (chạy với quyền quản trị), bấm **Yes**.
@@ -275,7 +272,7 @@ bản cũ được giữ lại với đuôi `.bak`), rồi bước ra khỏi h�
 
 ---
 
-## 4. Bảng tra lệnh nhanh (cả 2 máy)
+## 4. Bảng tra lệnh
 
 | Muốn làm gì | Gõ lệnh gì |
 |---|---|
@@ -286,7 +283,7 @@ bản cũ được giữ lại với đuôi `.bak`), rồi bước ra khỏi h�
 | Cài các món cho công cụ lấy tin | `pip install -r requirements.txt` |
 | Chạy công cụ lấy tin | `python tools\crawl_dsa.py` (Windows) hoặc `python tools/crawl_dsa.py` (Linux) |
 
-## 5. Nếu gặp lỗi thì làm sao
+## 5. Các lỗi thường gặp
 
 - **Gõ `npm install` mà báo lỗi dài dòng có chữ `edgesOut`:** đây là lỗi của npm,
   bạn đừng dùng npm nữa, dùng `corepack pnpm install` là được.
