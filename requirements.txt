@@ -1,0 +1,8 @@
+# Python deps cho crawler DSA (tools/crawl_dsa.py)
+# Cài:  pip install -r requirements.txt
+# Script hiện tại chỉ dùng thư viện chuẩn (urllib/re/json) nên chạy được
+# ngay cả khi chưa cài các gói dưới; các gói này dùng để mở rộng crawler
+# (parse HTML phức tạp, request ổn định) theo Requirements/Real_Time_Update.md.
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
