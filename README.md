@@ -1,303 +1,84 @@
-# Website Học bổng sinh viên UEH
+# Cổng Thông Tin Học Bổng Sinh Viên UEH
 
-Đây là trang web giúp sinh viên UEH tìm học bổng dễ hơn. Mọi học bổng của trường
-và của doanh nghiệp được gom về một chỗ, trình bày gọn thành từng thẻ.
-
-Sinh viên chỉ cần nhập điểm trung bình (GPA), điểm rèn luyện, khóa và ngành học,
-trang web sẽ tự chỉ ra mình hợp với học bổng nào, còn bao nhiêu ngày để nộp,
-cần chuẩn bị giấy tờ gì, và sẽ nhắc trước khi hết hạn.
+> **Kiến trúc giải pháp: Zero-Backend Interactive Prototype (Client-side Simulation)**  
+> Ứng dụng web trang tĩnh đơn (Single Static Page) tạo trải nghiệm tương tác giống 100% hệ thống Client-Server thực tế, **không cần server backend** và **không tốn chi phí hosting**. Chạy trực tiếp trên trình duyệt hoặc host qua **GitHub Pages**.
 
 ---
 
-## 1. Tính năng cửa web
+## 1. Giới thiệu tổng quan
 
-- **Ô tìm học bổng ở đầu trang:** nhập GPA, điểm rèn luyện, khóa, ngành, mong muốn
-  (muốn hỗ trợ tiền học hay muốn khen thưởng thành tích) → web tự lọc ra học bổng
-  bạn đủ điều kiện. Học bổng nào chưa đủ thì web ghi rõ lý do (ví dụ: GPA chưa đủ).
-- **Danh sách học bổng:** mỗi học bổng là một thẻ ghi rõ mức tiền, ngày mở, ngày hết
-  hạn, tình trạng (Đang nhận hồ sơ / Sắp mở / Đã hết hạn). Học bổng đang nhận được
-  xếp lên trước.
-- **Bấm vào từng thẻ** để xem đầy đủ: chi tiết điều kiện, giấy tờ cần làm, cách nộp.
-- **Hồ sơ của tôi:** chỗ lưu các học bổng bạn muốn nộp. Tắt máy mở lại vẫn còn.
-  Mỗi học bổng hiện rõ còn mấy ngày, gần hết hạn web sẽ nhắc. Giấy tờ nào làm xong
-  thì tick vào để khỏi quên.
-- **Hướng dẫn giấy tờ:** 4 bước từ tìm, lưu, chuẩn bị giấy tờ đến nộp trước hạn.
-- **Chỗ cho doanh nghiệp gửi học bổng mới:** thông tin gửi vào sẽ chờ Ban Chăm sóc
-  người học duyệt rồi mới đăng công khai.
+Website giải quyết bài toán phân tán thông tin học bổng tại Đại học Kinh tế TP.HCM (UEH), giúp tân sinh viên và sinh viên các khóa:
+- Gom tất cả học bổng của trường và doanh nghiệp về một nơi duy nhất.
+- Tự động đối chiếu GPA, điểm rèn luyện (ĐRL), khóa học và nguyện vọng để gợi ý học bổng đủ điều kiện.
+- Quản lý hồ sơ cá nhân ("Hồ sơ của tôi"), theo dõi countdown hạn nộp và checklist từng giấy tờ cần làm.
+- Cổng tiếp nhận học bổng mới từ doanh nghiệp ở trạng thái chờ duyệt (Pending State).
 
-Kết quả lọc chỉ để tham khảo cho nhanh, quyết định cuối cùng vẫn thuộc về đơn vị
-xét học bổng. Nguồn tin chính: dsa.ueh.edu.vn.
-
-## 2. Các thành phần trong repo
-
-- `src/` — toàn bộ phần hiển thị của web (màn hình, nút bấm, ô nhập...).
-- `src/data/scholarships.json` — danh sách 10 học bổng mẫu để chạy thử.
-- `tools/crawl_dsa.py` — công cụ nhỏ tự lấy tin học bổng từ trang DSA của trường.
-- `requirements.txt` — danh sách 3 món phụ trợ cho công cụ lấy tin
-  (`requests`, `beautifulsoup4`, `lxml`).
-- `package.json` — danh sách các món mà phần web cần (React, Vite, Tailwind...).
-- `_archive/`, `Ignore (Local_Only)/`, `Yeu_cau_KH.txt` — đồ lưu riêng trên máy,
-  không đưa lên mạng (đã khai báo trong `.gitignore` nên bạn tải từ GitHub về
-  sẽ không thấy chúng, đó là bình thường).
-
-## 3. Các thành phần cần chuẩn bị
-
-Bạn cần 3 thứ:
-
-1. **Git** — phần mềm để tải code từ GitHub về máy.
-2. **Node.js (bản 20)** — phần mềm để mở và chạy thử trang web.
-   Đi kèm nó có sẵn **corepack/pnpm**, là công cụ tải các món mà web cần.
-3. **Python (bản 3.10 trở lên)** — chỉ cần nếu bạn muốn chạy công cụ tự lấy tin
-   học bổng. Nếu chỉ mở web lên xem thì không bắt buộc.
-
-Bên dưới có 2 phần riêng: **phần A cho Windows**, **phần B cho Linux**.
-Bạn dùng máy nào thì đọc đúng phần đó.
+Tuân thủ đầy đủ 100% các tiêu chí trong tài liệu **`Yeu_cau_KH.txt`**.
 
 ---
 
-## A. Hướng dẫn cho máy Windows
+## 2. Kiến trúc kỹ thuật: Zero-Backend Interactive Prototype
 
-### 1. Mở PowerShell
-
-Bấm nút **Start**, gõ `PowerShell`, bấm mở **Windows PowerShell**.
-Mọi lệnh bên dưới bạn copy rồi dán vào cửa sổ này, bấm **Enter** sau mỗi lệnh.
-
-### 2. Cài 3 phần mềm cần thiết
-
-Gõ từng lệnh, chờ mỗi lệnh chạy xong hẳn rồi mới gõ lệnh tiếp theo:
-
-```powershell
-winget install --id Git.Git -e
+```mermaid
+flowchart LR
+    A["Thao tác người dùng<br/>(Lưu / Xóa / Checklist / Gửi)"] --> B["UI Loading State<br/>(Disabled button + Spinner)"]
+    B --> C["MockApiService<br/>(Mô phỏng mạng 350-450ms)"]
+    C --> D["window.sessionStorage<br/>(Lưu trữ phiên)"]
+    D --> E["Phản hồi [200 OK] + Toast"]
+    E --> F["Render Controller cập nhật DOM"]
 ```
 
-```powershell
-winget install --id OpenJS.NodeJS.LTS -e
-```
-
-```powershell
-winget install --id Python.Python.3.12 -e
-```
-
-(Lệnh `winget` là "chợ ứng dụng" có sẵn của Windows, nó tự tải và cài giúp bạn.
-Khi cài Python, nếu nó hỏi thì nhớ tick vào ô **Add python.exe to PATH**.)
-
-Cài xong, **tắt PowerShell đi, mở lại** rồi kiểm tra:
-
-```powershell
-git --version
-node --version
-python --version
-```
-
-Nếu cả 3 lệnh đều hiện ra chữ và số phiên bản (ví dụ `v20.x`, `Python 3.12...`)
-là thành công.
-
-### 3. Bật công cụ pnpm
-
-1. Bấm nút **Start**, gõ `PowerShell`, **bấm chuột phải** → chọn
-   **Run as Administrator** (chạy với quyền quản trị), bấm **Yes**.
-2. Trong cửa sổ đó gõ:
-
-```powershell
-corepack enable
-```
-
-3. Tắt đi, mở lại PowerShell bình thường, gõ:
-
-```powershell
-corepack pnpm --version
-```
-
-Nếu nó hiện ra số phiên bản (ví dụ `12.16.1`) là xong.
-(Từ đây về sau, chỗ nào ghi `pnpm ...` mà máy báo không hiểu thì bạn gõ
-`corepack pnpm ...` thay thế.)
-
-### 4. Tải code về và mở web lên
-
-```powershell
-cd D:\
-git clone https://github.com/Useful-Minus/Corporator-Schoolarship-VHD-.git UEH_WebHB
-cd UEH_WebHB
-```
-
-Lệnh trên tải code về ổ D, thư mục `UEH_WebHB`. Tiếp theo, tải các món mà web cần
-(chỉ làm 1 lần, chờ vài phút):
-
-```powershell
-corepack pnpm install
-```
-
-Rồi mở web lên:
-
-```powershell
-corepack pnpm dev --port 5173 --host 127.0.0.1
-```
-
-Khi thấy dòng chữ `ready in ...` và địa chỉ `http://127.0.0.1:5173/`,
-bạn mở trình duyệt (Chrome/Edge), gõ địa chỉ đó vào là thấy trang web.
-Muốn tắt web thì quay lại PowerShell bấm **Ctrl + C**.
-
-Muốn đóng gói web thành bản hoàn chỉnh (để đưa lên mạng sau này):
-
-```powershell
-corepack pnpm build
-```
-
-File thành phẩm nằm trong thư mục `dist/`. Muốn xem thử bản đó:
-
-```powershell
-corepack pnpm preview
-```
-
-### 5. Cài thêm công cụ lấy tin học bổng (không bắt buộc)
-
-Chỉ cần nếu bạn muốn tự lấy tin mới từ trang của trường.
-Trong PowerShell, đang ở thư mục `UEH_WebHB`, gõ:
-
-```powershell
-python -m venv .venv
-```
-
-(Lệnh này tạo một "cái hộp riêng" tên `.venv` để đựng các món của Python,
-không làm bẩn máy.)
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-(Nếu máy báo lỗi màu đỏ về execution policy, gõ lệnh này trước rồi thử lại:
-`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`)
-
-```powershell
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-python tools\crawl_dsa.py
-```
-
-Lệnh cuối sẽ tự lấy tin và ghi vào `src\data\scholarships.json`
-(có giữ lại bản cũ với đuôi `.bak` để đề phòng). Làm xong thì gõ `deactivate`
-để thoát khỏi "cái hộp".
+### Các nguyên lý kỹ thuật cốt lõi:
+1. **Trang tĩnh đơn độc lập (`index.html`):** 
+   - 1 file duy nhất tích hợp HTML5 ngữ nghĩa, CSS hiện đại theo nhận diện thương hiệu UEH (Xanh ngọc lục bảo `#00583d`, Navy `#0b2545`, Vàng hổ phách `#f59e0b`) và toàn bộ Script xử lý logic.
+2. **Lưu trữ phiên (Session Persistence):**
+   - Sử dụng `window.sessionStorage` để lưu ID học bổng đã lưu, trạng thái tick checklist và danh sách học bổng doanh nghiệp gửi.
+   - *Hành vi:* F5/Reload trang **không mất dữ liệu**; đóng tab/trình duyệt sẽ tự động xóa sạch dữ liệu về trạng thái ban đầu. Có nút *"Làm mới dữ liệu"* để reset nhanh khi demo.
+3. **Mô phỏng độ trễ mạng (Network Latency):**
+   - Tầng `MockApiService` bất đồng bộ (`async/await` + `Promise` + `setTimeout`) trễ 350ms – 450ms trước khi resolve.
+4. **Phản hồi giao diện (UI Loading States):**
+   - Nút lập tức chuyển sang trạng thái pending (`disabled = true`, spinner xoay, nhãn *"Đang lưu..."*, *"Đang gửi..."*).
+   - Toast notification xuất hiện với mã chuẩn RESTful `[200 OK]` hoặc `[201 Created]`.
+5. **Cổng học bổng doanh nghiệp (Pending State):**
+   - Doanh nghiệp gửi thông tin qua form, dữ liệu lưu vào danh sách chờ Ban Chăm sóc người học duyệt (chưa công bố công khai ngay).
 
 ---
 
-## B. Hướng dẫn cho máy Linux (Ubuntu)
+## 3. Cách chạy và triển khai
 
-### 1. Mở Terminal
+### Cách 1: Chạy trực tiếp trên máy (Không cần cài đặt bất kỳ phần mềm nào)
+1. Tải repository về máy.
+2. Nhấp đúp chuột trực tiếp vào file **`index.html`** để mở trên bất kỳ trình duyệt nào (Chrome, Edge, Firefox, Safari).
 
-Bấm **Ctrl + Alt + T**. Mọi lệnh bên dưới bạn copy, dán vào Terminal,
-bấm **Enter**. Lệnh nào bắt đầu bằng `sudo` thì máy sẽ hỏi mật khẩu,
-bạn cứ gõ mật khẩu đăng nhập rồi Enter (gõ không hiện chữ là bình thường).
-
-### 2. Cài 3 phần mềm cần thiết
-
-```bash
-sudo apt update
-sudo apt install -y git python3 python3-venv python3-pip curl
-```
-
-```bash
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
-```
-
-(Dòng đầu cài Git và Python. Hai dòng sau cài Node.js bản 20.)
-
-Kiểm tra:
-
-```bash
-git --version
-node --version
-python3 --version
-```
-
-Cả 3 lệnh đều hiện chữ và số phiên bản là thành công.
-
-### 3. Bật công cụ pnpm (chỉ làm 1 lần)
-
-```bash
-sudo corepack enable || true
-corepack pnpm --version
-```
-
-Nếu dòng `sudo corepack enable` báo lỗi không có quyền ghi thì kệ nó,
-miễn dòng thứ hai hiện ra số phiên bản là được. Từ đây, chỗ nào ghi `pnpm ...`
-mà máy báo không hiểu thì gõ `corepack pnpm ...` thay thế.
-
-### 4. Tải code về và mở web lên
-
-```bash
-cd ~
-git clone https://github.com/Useful-Minus/Corporator-Schoolarship-VHD-.git UEH_WebHB
-cd UEH_WebHB
-```
-
-```bash
-corepack pnpm install
-```
-
-```bash
-corepack pnpm dev --port 5173 --host 127.0.0.1
-```
-
-Khi thấy chữ `ready in ...`, bạn mở trình duyệt, gõ `http://127.0.0.1:5173/`
-là thấy web. Muốn tắt thì quay lại Terminal bấm **Ctrl + C**.
-
-Đóng gói bản hoàn chỉnh:
-
-```bash
-corepack pnpm build
-```
-
-File thành phẩm nằm trong thư mục `dist/`. Xem thử bản đó:
-
-```bash
-corepack pnpm preview
-```
-
-### 5. Cài thêm công cụ lấy tin học bổng (không bắt buộc)
-
-```bash
-cd ~/UEH_WebHB
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-python tools/crawl_dsa.py
-deactivate
-```
-
-Giải thích nhanh: tạo "cái hộp riêng" `.venv`, bước vào hộp, cài 3 món trong
-`requirements.txt`, chạy công cụ lấy tin (ghi vào `src/data/scholarships.json`,
-bản cũ được giữ lại với đuôi `.bak`), rồi bước ra khỏi hộp.
+### Cách 2: Triển khai lên GitHub Pages (Miễn phí 100%, 0đ hosting)
+1. Đẩy mã nguồn lên repository GitHub của bạn (file `index.html` nằm ở thư mục gốc `root`).
+2. Vào **Settings** của repository $\to$ chọn mục **Pages**.
+3. Tại phần **Build and deployment**:
+   - Source: **Deploy from a branch**
+   - Branch: chọn nhánh `main` (hoặc `master`), thư mục chọn `/ (root)`.
+4. Bấm **Save**. Sau khoảng 1 phút, trang web sẽ online tại đường dẫn `https://<ten-user>.github.io/<ten-repo>/`.
 
 ---
 
-## 4. Bảng tra lệnh
+## 4. Bảng đối chiếu 10 mục yêu cầu theo `Yeu_cau_KH.txt`
 
-| Muốn làm gì | Gõ lệnh gì |
-|---|---|
-| Tải các món web cần (làm 1 lần) | `corepack pnpm install` |
-| Mở web lên xem thử | `corepack pnpm dev --port 5173 --host 127.0.0.1` |
-| Đóng gói bản hoàn chỉnh | `corepack pnpm build` |
-| Xem thử bản đã đóng gói | `corepack pnpm preview` |
-| Cài các món cho công cụ lấy tin | `pip install -r requirements.txt` |
-| Chạy công cụ lấy tin | `python tools\crawl_dsa.py` (Windows) hoặc `python tools/crawl_dsa.py` (Linux) |
+| Mục yêu cầu | Nội dung trong Yeu_cau_KH.txt | Triển khai thực tế trên Website |
+|---|---|---|
+| **Mục 3: Danh sách học bổng** | Thẻ gọn gàng, đủ GPA, ĐRL, mức tiền, hạn nộp, tình trạng. Đang nhận hồ sơ lên trước. Phân nhóm so sánh. | Grid responsive, nhãn phân loại UEH / Doanh nghiệp, badge trạng thái động, tabs lọc nhóm. |
+| **Mục 4: Ô tìm học bổng** | Nhập GPA, ĐRL, khóa, ngành, nguyện vọng. Tự động kiểm tra điều kiện. | Ô lọc đa tiêu chí ở đầu trang. Gắn nhãn xanh "✅ Đủ điều kiện" hoặc nhãn vàng "⚠️ Chưa đạt: lý do". |
+| **Mục 5: Chi tiết học bổng** | Xem toàn bộ chi tiết, nút "Thêm vào Hồ sơ của tôi" có loading state. | Modal popup chi tiết, thông tin điều kiện, hồ sơ, link nguồn gốc dsa.ueh.edu.vn. |
+| **Mục 6: Hồ sơ của tôi** | Lưu không mất khi F5, đếm ngược ngày hết hạn, bảng kiểm (checklist) giấy tờ tick/untick. | Quản lý danh sách đã lưu, thanh tiến độ hoàn thành % giấy tờ, cảnh báo đỏ học bổng $\le$ 7 ngày. |
+| **Mục 7: Nhắc hạn nộp** | Hiện ngày hết hạn và số ngày còn lại. Cảnh báo gần hạn. | Countdown real-time, tích hợp native Web Notification API của trình duyệt. |
+| **Mục 8: Hướng dẫn giấy tờ** | Quy trình chuẩn bị giấy tờ cho từng loại học bổng. | Tab Hướng dẫn 4 bước trực quan + bảng danh mục mẫu giấy tờ chuẩn UEH. |
+| **Mục 9: Cổng Doanh nghiệp** | Biểu mẫu gửi học bổng, chuyển về trạng thái chờ duyệt (Pending). | Biểu mẫu gửi học bổng qua Mock API, hiển thị danh sách "Chờ duyệt" của Ban Chăm sóc người học. |
+| **Mục 10: Yêu cầu chung** | Cập nhật động theo thời gian, kết quả lọc mang tính tham khảo. | Tự động tính ngày so với ngày hiện tại; disclaimer bản quyền & nguồn DSA UEH rõ ràng. |
 
-## 5. Các lỗi thường gặp
+---
 
-- **Gõ `npm install` mà báo lỗi dài dòng có chữ `edgesOut`:** đây là lỗi của npm,
-  bạn đừng dùng npm nữa, dùng `corepack pnpm install` là được.
-- **`corepack enable` báo không có quyền:** trên Windows thì mở PowerShell bằng
-  **Run as Administrator** rồi gõ lại; trên Linux thì kệ nó, cứ gọi
-  `corepack pnpm ...` trực tiếp.
-- **Windows báo lỗi khi kích hoạt `.venv`:** gõ
-  `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
-  rồi làm lại.
-- **Báo cổng 5173 đã có người dùng (port busy):** đổi số khác, ví dụ
-  `corepack pnpm dev --port 5174`.
-- **Web không hiện thông báo nhắc hạn nộp:** trình duyệt chỉ cho hiện thông báo
-  khi mở bằng địa chỉ localhost và khi bạn đã bấm **Cho phép**. Không sao cả,
-  web vẫn hiện chữ đỏ "Còn X ngày" ngay trên học bổng đó.
-- **Tải từ GitHub về mà không thấy `_archive/`, `Ignore (Local_Only)/`,
-  `Yeu_cau_KH.txt`:** bình thường nhé, đó là đồ riêng trên máy cũ, không đưa
-  lên mạng.
+## 5. Cấu trúc thư mục
+
+- `index.html`: File ứng dụng tĩnh hoàn chỉnh (Single-file solution) phục vụ demo và host GitHub Pages.
+- `src/`: Mã nguồn module hóa ban đầu (React/Vite) được lưu trữ làm tài liệu tham khảo kỹ thuật.
+- `src/data/scholarships.json`: File dữ liệu 10 học bổng chuẩn UEH.
+- `tools/crawl_dsa.py`: Script Python cào dữ liệu tự động từ cổng `dsa.ueh.edu.vn`.
+- `Yeu_cau_KH.txt`: Bản đặc tả yêu cầu nghiệm thu của khách hàng đã chốt.
